@@ -616,6 +616,16 @@ public class WriteTest {
             .doWrite(data());
     }
 
+    @Test
+    public void dynamicHeadWrite1() {
+        String fileName = TestFileUtil.getPath() + "dynamicHeadWrite" + System.currentTimeMillis() + ".xlsx";
+        EasyExcel.write(fileName)
+                // 这里放入动态头
+                .head(head()).sheet("模板")
+                // 当然这里数据也可以用 List<List<String>> 去传入
+                .doWrite(data1());
+    }
+
     /**
      * 自动列宽(不太精确)
      * <p>
@@ -657,6 +667,19 @@ public class WriteTest {
         // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
         EasyExcel.write(fileName, DemoData.class).registerWriteHandler(new CustomSheetWriteHandler())
             .registerWriteHandler(new CustomCellWriteHandler()).sheet("模板").doWrite(data());
+    }
+
+    @Test
+    public void customHandlerWrite1() {
+        String fileName = TestFileUtil.getPath() + "customHandlerWrite" + System.currentTimeMillis() + ".xlsx";
+        // 这里 需要指定写用哪个class去写，然后写到第一个sheet，名字为模板 然后文件流会自动关闭
+        EasyExcel.write(fileName)
+                .registerWriteHandler(new CustomSheetWriteHandler())
+                .registerWriteHandler(new CustomCellWriteHandler())
+                // 这里放入动态头
+                .head(head()).sheet("模板")
+                // 当然这里数据也可以用 List<List<String>> 去传入
+                .doWrite(data());
     }
 
     /**
@@ -765,6 +788,18 @@ public class WriteTest {
             data.setDate(new Date());
             data.setDoubleData(0.56);
             list.add(data);
+        }
+        return list;
+    }
+
+    private List<List<String>> data1() {
+        List<List<String>> list = ListUtils.newArrayList();
+        for (int i = 0; i < 10; i++) {
+            List<String> subList = new ArrayList<>(); // 创建子列表
+            for (int j = 0; j < 3; j++) {
+                subList.add("测试数据" + j);
+            }
+            list.add(subList); // 将子列表添加到主列表中
         }
         return list;
     }
