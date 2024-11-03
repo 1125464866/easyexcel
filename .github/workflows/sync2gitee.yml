@@ -17,7 +17,7 @@ jobs:
       - name: Mirror the GitHub organization repos to Gitee
         uses: Yikun/hub-mirror-action@master
         with:
-          src: "github/liuxianying"  # GitHub 仓库路径
+          src: "github/1125464866"  # GitHub 仓库路径
           dst: "gitee/liudada599"      # Gitee 仓库路径
           src_token: ${{ secrets.GH_TOKEN }}     # GitHub Token
           dst_token: ${{ secrets.GITEE_TOKEN }}   # Gitee Token
