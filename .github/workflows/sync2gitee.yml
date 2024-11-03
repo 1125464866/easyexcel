@@ -1,22 +1,26 @@
-# 通过 Github action， 在仓库的每一次 commit 后自动同步到 Gitee 上
-name: Mirror the Github organization repos to Gitee
+name: Mirror the GitHub organization repos to Gitee
 
-on: [push]
+on:
+  push:
+    branches:
+      - liudada  # 根据需要调整监控的分支
 
 jobs:
   repo-sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
           token: ${{ secrets.GH_TOKEN }}  # 使用 GitHub Token
-      - name: Mirror the Github organization repos to Gitee.
+
+      - name: Mirror the GitHub organization repos to Gitee
         uses: Yikun/hub-mirror-action@master
         with:
-          src: github/liuxianying/easyexcel
-          dst: gitee/liudada599/easyexcel
-          src_token: ${{ secrets.GH_TOKEN }}  # GitHub Token
-          dst_token: ${{ secrets.GITEE_TOKEN }}  # Gitee Token
+          src: "github/liuxianying/easyexcel"  # GitHub 仓库路径
+          dst: "gitee/liudada599/easyexcel"      # Gitee 仓库路径
+          src_token: ${{ secrets.GH_TOKEN }}     # GitHub Token
+          dst_token: ${{ secrets.GITEE_TOKEN }}   # Gitee Token
           dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}  # Gitee 私钥
-          account_type: org
-          static_list: "easyexcel"
+          account_type: org                       # 组织账户类型
+          static_list: "easyexcel"                # 静态仓库列表，可根据需要修改
