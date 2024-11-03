@@ -21,6 +21,6 @@ jobs:
           dst: "gitee/liudada599"      # Gitee 仓库路径
           src_token: ${{ secrets.GH_TOKEN }}     # GitHub Token
           dst_token: ${{ secrets.GITEE_TOKEN }}   # Gitee Token
-          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}  # Gitee 私钥1
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}  # Gitee 私钥
           account_type: org                       # 组织账户类型
           static_list: "easyexcel"                # 静态仓库列表，可根据需要修改
